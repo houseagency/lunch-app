@@ -26,6 +26,8 @@ html, body, #app {
 
 body {
     font-family: 'Brandon_reg', sans-serif;
+    font-size: 1.2rem;
+    font-weight: lighter;
     margin: 0;
     padding: 0;
 }
@@ -34,10 +36,11 @@ h1, h2, h3 {
     font-weight: lighter;
 }
 
-a {
+a, .info a {
     color: white;
     cursor: pointer;
     align-items: center;
+    margin-top: 2rem;
 }
 
 a:hover {
@@ -86,10 +89,9 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
     align-items: center;
     /* justify-content: center; */
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
     box-sizing: border-box;
-    /* border: 1px solid red; */
 }
 
 .info-container {
@@ -99,6 +101,7 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
 .btn-container, .randomizer-container {
     padding-top: 2rem;
 }
+
 .slot-machine {
     background-color: #fff;
     color: #222;
@@ -115,10 +118,6 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
     position: absolute;
     top: 0;
     left: 0;    
-}
-
-.moreInfo-link {
-    padding-top: 20px;
 }
 
 .restaurant-container {
@@ -142,6 +141,7 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
 .info h1 {
     margin-bottom: 0.5rem;
 }
+
 .info p {
     margin: 0;
 }
@@ -151,13 +151,13 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
 }
 
 .details {
-    padding-top: 1rem;
+    padding: 1rem 0;
 }
 
-.menu {
+.section-divider {
     width: 100%;
     padding: 0 5%;
-    height: 3rem;
+    /* height: 3rem; */
     margin-top: 1.7rem;
     /* border-top: 1px solid white; */
     border-bottom: 1px solid white;
@@ -167,10 +167,16 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
     align-items: center;
     font-weight: lighter;
     box-sizing: border-box;
+    /* border: 1px dotted red; */
+    
 }
 
-.menu-item-container {
-    width: 100%;
+.header-container {
+    width: 100%;    
+}
+
+h3 {
+    padding: 0;
 }
 
 /*------------------------------------------------------------------------------
@@ -196,7 +202,7 @@ button {
     margin-bottom: 2.5rem;
     outline: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
     font-weight: lighter;
 }
@@ -226,11 +232,16 @@ button:hover {
  Media Queries
 ------------------------------------------------------------------------------*/
 @media (min-width: 800px) {  
+    body {
+        font-size: 1.4rem;
+    }
+
     button {
         width: 80%;
         height: 8rem;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
+
     .btn-icon {
         padding-left: 3rem;
         width: 90px;

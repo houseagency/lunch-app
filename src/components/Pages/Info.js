@@ -23,9 +23,8 @@ class Info extends Component {
                     <p>Rating: { selectedRestaurant.rating }</p>
                     <p>Location: { selectedRestaurant.address }</p>
                 </div>
-                {/* ÄNDRA NAMN PÅ KLASS */}
-                <div className='menu'>
-                    <div className='menu-item-container'>
+                <div className='section-divider'>
+                    <div className='header-container'>
                         <h3>DETAILS</h3>
                     </div>
                 </div>
@@ -34,14 +33,14 @@ class Info extends Component {
                     <p className='details' >
                     { selectedRestaurant.desc }
                     </p>
-                    <a target='_blank'className="menu-link" 
+                    <a target='_blank' 
                         href={ selectedRestaurant.menu_link }>
                         To the lunch menu
                     </a>
                     
                 </div>
-                <div className='menu'>
-                    <div className='menu-item-container'>
+                <div className='section-divider'>
+                    <div className='header-container'>
                         <h3>LOCATION</h3>
                     </div>
                 </div>
