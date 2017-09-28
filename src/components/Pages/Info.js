@@ -18,10 +18,12 @@ class Info extends Component {
                 <img className='rest-img' src={ selectedRestaurant.img_url } />
                 <div className='info'>
                     <h1>{ selectedRestaurant.name }</h1>
+                    <p>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i> 
+                        { selectedRestaurant.address }</p>
                     <p>Cuisine: { selectedRestaurant.cuisine } </p>
                     <p>Price range: { selectedRestaurant.price_range }</p>
                     <p>Rating: { selectedRestaurant.rating }</p>
-                    <p>Location: { selectedRestaurant.address }</p>
                 </div>
                 <div className='section-divider'>
                     <div className='header-container'>
