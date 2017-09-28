@@ -8,7 +8,8 @@ class Map extends Component {
     constructor() {
         super();
         this.state = {
-            map: null
+            map: null,
+
         }
     }
     mapMoved() {
@@ -34,10 +35,12 @@ class Map extends Component {
                 ref= { this.mapLoaded.bind(this) }
                 onDragEnd = { this.mapMoved.bind(this) }
                 defaultZoom = { this.props.zoom }
-                defaultCenter = { this.props.position }>  
-                { markers.map((marker, index) => (
+                defaultCenter = { this.props.position }
+                markers = { this.props.position }>  
+
+                {/* { markers.map((marker, index) => (
                     <Marker key= {index} { ...marker } />
-                )) }
+                )) } */}
             </GoogleMap>
         )
     }

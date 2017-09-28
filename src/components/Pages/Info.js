@@ -4,11 +4,6 @@ import Map from '../Map/Map';
 class Info extends Component {
     render() {
         const { selectedRestaurant } = this.props;
-        console.log(selectedRestaurant );
-
-        // showMenu = () => {
-        //     { selectedRestaurant.menu_link }
-        // }
         return (
             <div className="info-container">
                 {/* <div className='rest-img' 
@@ -18,9 +13,10 @@ class Info extends Component {
                 <img className='rest-img' src={ selectedRestaurant.img_url } />
                 <div className='info'>
                     <h1>{ selectedRestaurant.name }</h1>
-                    <p>
-                        <i class="fa fa-map-marker" aria-hidden="true"></i> 
-                        { selectedRestaurant.address }</p>
+                    <div className='address-container'>
+                        <i className="fa fa-map-marker" aria-hidden="true"></i>
+                        <p> { selectedRestaurant.address }</p>
+                    </div>
                     <p>Cuisine: { selectedRestaurant.cuisine } </p>
                     <p>Price range: { selectedRestaurant.price_range }</p>
                     <p>Rating: { selectedRestaurant.rating }</p>
@@ -57,7 +53,12 @@ class Info extends Component {
                         }} />
                     }
                     mapElement={<div style={{height:100+'%'}} />} 
+                
                 />
+
+                <a className="moreInfo-link" href='#'ref='link' onClick={ () => this.props.backToStart() } >
+                    BACK TO START
+                </a>
             </div>
         );
     }

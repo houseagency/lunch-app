@@ -25,6 +25,7 @@ class App extends Component {
 		this.onRestaurantSelected = this.onRestaurantSelected.bind(this);
 		this.choosenCat = this.choosenCat.bind(this);
 		this.showInfo = this.showInfo.bind(this);
+		this.backToStart = this.backToStart.bind(this);
 	}
 
 	//Funktion som kallas på när man klickat på en katergori-knapp
@@ -38,7 +39,13 @@ class App extends Component {
 		});
 	}
 
-	showInfo( ) {
+	backToStart() {
+		this.setState({
+			step: 1
+		});
+	}
+
+	showInfo() {
 		this.setState({
 			step: 3
 		});
@@ -54,20 +61,23 @@ class App extends Component {
 		if( this.state.step === 1 ) {
 			return (
 				<Home 
-					choosenCat={ this.choosenCat }/>
+					choosenCat={ this.choosenCat }
+				/>
 			)
 		} else if( this.state.step === 2 ) {
 			return (
 				<Randomizer 
 					restaurantList={ this.state.restaurantsList }
 					onRestaurantSelected={ this.onRestaurantSelected }
-					showInfo={ this.showInfo }/>
-				)
-					
+					showInfo={ this.showInfo }
+				/>
+			)		
 		} else if( this.state.step === 3 ) {
 			return (
 				<Info 
-					selectedRestaurant={this.state.selectedRestaurant}/>
+					selectedRestaurant={this.state.selectedRestaurant}
+					backToStart={ this.backToStart }
+				/>
 			)
 		}
 	}

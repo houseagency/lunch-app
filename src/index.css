@@ -179,6 +179,16 @@ h3 {
     padding: 0;
 }
 
+.address-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+.fa {
+    font-size: 1.7rem;
+    margin-right: 0.5rem;
+}
+
 /*------------------------------------------------------------------------------
  Button styling
 ------------------------------------------------------------------------------*/
