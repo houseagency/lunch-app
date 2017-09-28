@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import MarkerIcon from '../../Logotypes/MarkerIcon.svg';
 
 class Map extends Component {
     constructor() {
@@ -32,7 +33,13 @@ class Map extends Component {
                 onDragEnd = { this.mapMoved.bind(this) }
                 defaultZoom = { this.props.zoom }
                 defaultCenter = { this.props.position }> 
-                <Marker position= { this.props.position } />
+                <Marker position= { this.props.position } 
+                    icon={{ 
+                        url: MarkerIcon,
+                        /*anchor: new google.maps.Point(32,32),*/
+                        scaledSize: new google.maps.Size(64,64)
+                    }}
+                />
             </GoogleMap>
         )
     }
