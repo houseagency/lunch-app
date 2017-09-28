@@ -53,7 +53,6 @@ class Info extends Component {
                         }} />
                     }
                     mapElement={<div style={{height:100+'%'}} />} 
-                
                 />
 
                 <a className="moreInfo-link" href='#'ref='link' onClick={ () => this.props.backToStart() } >
