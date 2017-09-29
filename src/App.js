@@ -70,6 +70,7 @@ class App extends Component {
 					restaurantList={ this.state.restaurantsList }
 					onRestaurantSelected={ this.onRestaurantSelected }
 					showInfo={ this.showInfo }
+					backToStart={ this.backToStart }
 				/>
 			)		
 		} else if( this.state.step === 3 ) {

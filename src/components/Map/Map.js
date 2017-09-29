@@ -25,9 +25,10 @@ class Map extends Component {
             })            
         }
     }
-
+// Here you render out the Map, and Marker on page
     render() {
         return(
+            
             <GoogleMap 
                 ref= { this.mapLoaded.bind(this) }
                 onDragEnd = { this.mapMoved.bind(this) }
@@ -37,11 +38,16 @@ class Map extends Component {
                     icon={{ 
                         url: MarkerIcon,
                         /*anchor: new google.maps.Point(32,32),*/
-                        scaledSize: new google.maps.Size(64,64)
+                        scaledSize: new google.maps.Size(55,63),
+                        move: 'bounce'
+                        
                     }}
                 />
             </GoogleMap>
+
+            
         )
+        
     }
 }
 
