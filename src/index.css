@@ -59,12 +59,13 @@ header {
 }
 
 .logo-container{
-    background-image: url("./Logotypes/logo.png");
+    background-image: url("./Logotypes/high_res_logo.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
+    background-position: center;
     margin-top: 20px;
-    width: 180px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
 }
 
 /*------------------------------------------------------------------------------
