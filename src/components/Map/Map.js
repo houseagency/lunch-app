@@ -40,7 +40,6 @@ class Map extends Component {
                         /*anchor: new google.maps.Point(32,32),*/
                         scaledSize: new google.maps.Size(55,63),
                         move: 'bounce'
-                        
                     }}
                 />
             </GoogleMap>
