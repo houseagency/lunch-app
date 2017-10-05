@@ -27,6 +27,7 @@
 		"react-router-dom": "^4.2.2"
 	},
 	"devDependencies": {
+		"autoprefixer": "^7.1.4",
 		"gh-pages": "^1.0.0",
 		"nwb": "0.18.x",
 		"webpack": "^3.6.0"
