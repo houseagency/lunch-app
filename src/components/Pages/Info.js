@@ -10,7 +10,7 @@ class Info extends Component {
                     style='background-image:url({ selectedRestaurant.cuisine })'>
                     { selectedRestaurant.img_url }
                 </div> */}
-                <img className='rest-img' src={ selectedRestaurant.img_url } />
+                <img className='rest-img' src={ selectedRestaurant.restImage.url } />
                 <div className='info'>
                     <h1>{ selectedRestaurant.name }</h1>
                     <div className='address-container'>
@@ -18,7 +18,7 @@ class Info extends Component {
                         <p> { selectedRestaurant.address }</p>
                     </div>
                     <p>Cuisine: { selectedRestaurant.cuisine } </p>
-                    <p>Price range: { selectedRestaurant.price_range }</p>
+                    <p>Price range: { selectedRestaurant.priceRange }</p>
                     <p>Rating: { selectedRestaurant.rating }</p>
                 </div>
                 <div className='section-divider'>
@@ -28,9 +28,7 @@ class Info extends Component {
                 </div>
                 <div className='info'>
 
-                    <p className='details' >
-                    { selectedRestaurant.desc }
-                    </p>
+                    <p className='details'> { selectedRestaurant.desc } </p>
                     <a target='_blank' 
                         href={ selectedRestaurant.menu_link }>
                         To the lunch menu

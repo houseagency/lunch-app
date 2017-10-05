@@ -17,6 +17,7 @@
 		"history": "^4.7.2",
 		"prop-types": "^15.5.10",
 		"react": "^15.6.1",
+		"react-apollo": "^1.4.16",
 		"react-dom": "^15.6.1",
 		"react-fontawesome": "^1.6.1",
 		"react-google-map": "^3.0.1",
