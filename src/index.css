@@ -218,7 +218,43 @@ button {
     /* font-weight: lighter; */
     /* vertical-align: middle; */
     /* letter-spacing: 0.2rem; */
-}
+
+    -webkit-animation: bounce .5s infinite alternate;
+    -moz-animation: bounce .5s infinite alternate;
+    animation: bounce .5s infinite alternate;
+  }
+  @-webkit-keyframes bounce {
+    to { -webkit-transform: scale(1.04); }
+  }
+  @-moz-keyframes bounce {
+    to { -moz-transform: scale(1.04); }
+  }
+  @keyframes bounce {
+    to { transform: scale(1.04); }
+  }
+    
+
+/* button {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    position: relative;
+    font-family: 'Brandon', sans-serif;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 2px solid #fff;
+    background: none;
+    width: 90%;
+    color: #fff;
+    height: 100px;
+    margin-bottom: 2rem;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-transform: uppercase;  
+} */
+
+   
 
 button:hover {
     box-shadow: 0 2px 7px rgba(0,0,0,.3), 0 0px 1px rgba(0,0,0,.2);
