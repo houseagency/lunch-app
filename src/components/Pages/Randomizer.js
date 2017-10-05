@@ -15,7 +15,7 @@ class Randomizer extends Component {
         this.spin = this.spin.bind(this);
         this.moveSpinnerOneStep = this.moveSpinnerOneStep.bind(this);
         this.stopSpinner = this.stopSpinner.bind(this);
-        // this.fetchLink = this.fetchLink.bind(this);
+        this.fetchLink = this.fetchLink.bind(this);
     }
 
     /* Spin that randomizes the value and sets the variables and calls the 
@@ -63,14 +63,32 @@ class Randomizer extends Component {
 
         TweenMax.to( this.refs.slots, 2, {
             y: -stepToGoTo * this.slotHeight,
-            ease: Elastic.easeOut
-            // onComplete: () => { this.fetchLink({this.selectedRestaurant}); }
+            ease: Elastic.easeOut,
+            onComplete: () => { this.fetchLink(); }
         });
     }
 
-    // fetchLink = (restInfo) => {
-    //     // TweenMax.to(this.refs.link), 0.3, {autoAlpha: 1, display:'block'};
-    // }
+    fetchLink = () => {
+        document.querySelector('.info-link').style.display = 'block';
+        document.querySelector('.info-link').animate([
+            // keyframes
+            // { transform: 'translateY(-50px)' }, 
+            // { transform: 'translateY(0px)' }
+
+            // { transform: 'translate(-50px)',}, 
+            // { transform: 'translate(0px)' }
+
+            { transform: 'scale(1.04)',}, 
+            { transform: 'scale(1.04)' }
+
+          ], { 
+
+            // timing options
+            duration: 1000,
+            iterations: 1
+          });
+
+    }
 
     /* If new props are sent go to spin method again */ 
     componentWillReceiveProps(nextProps) {
@@ -108,7 +126,7 @@ class Randomizer extends Component {
                         {restaurants}
                     </div>
                 </div>
-                <a className="moreInfo-link" href='#'ref='link' onClick={ () => this.props.showInfo() } >
+                <a className="info-link" href='#'ref='link' onClick={ () => this.props.showInfo() } >
                     MORE INFO
                 </a>
                 <a className="moreInfo-link" href='#'ref='link' onClick={ () => this.props.backToStart() } >

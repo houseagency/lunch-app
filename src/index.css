@@ -194,21 +194,9 @@ h3 {
  Button styling
 ------------------------------------------------------------------------------*/
 button {
-    display: flex;
-    /* display: -webkit-flex; 
-    display: -moz-box;
-    display: -ms-flexbox; */
-    
+    display: flex;   
     flex-flow: row wrap;
-    /* -webkit-flex-flow: row wrap;
-    -moz-flex-flow: row wrap;
-	-ms-flex-flow: row wrap; */
-
     align-items: center;
-    /* -webkit-align-items: center;
-    -moz-align-items: center;
-	-ms-align-items: center; */
-   
     position: relative;
     font-family: 'Brandon', sans-serif;
     box-sizing: border-box;
@@ -224,17 +212,9 @@ button {
     cursor: pointer;
     font-size: 1.2rem;
     text-transform: uppercase;
-    -webkit-animation: bounce .5s infinite alternate;
-    -moz-animation: bounce .5s infinite alternate;
     animation: bounce .5s infinite alternate;
 }
 
-@-webkit-keyframes bounce {
-    to { -webkit-transform: scale(1.04); }
-}
-@-moz-keyframes bounce {
-    to { -moz-transform: scale(1.04); }
-}
 @keyframes bounce {
     to { transform: scale(1.04); }
 }
@@ -249,6 +229,25 @@ button:hover {
     padding-right: 1rem;
     padding-left: 1rem;
 }
+.info-link{
+    display: none;
+    /* opacity: 0; */
+    /* text-transform: lowercase; */
+    /* animation: mymove 15s infinite; */
+    /* transition: transform 5000ms ease-in-out; */
+    animation: bounce .5s infinite alternate;
+    
+   
+}
+
+/* .animate{
+     animation: mymove 15s infinite;
+}
+
+@keyframes mymove{
+    from {left: 0px;}
+    to {left: 200px;}
+} */
 
 /*------------------------------------------------------------------------------
  Map styling
@@ -281,3 +280,5 @@ button:hover {
         height: 90px;
     }
 }
+
+
