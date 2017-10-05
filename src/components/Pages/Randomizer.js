@@ -75,16 +75,16 @@ class Randomizer extends Component {
             // { transform: 'translateY(-50px)' }, 
             // { transform: 'translateY(0px)' }
 
-            // { transform: 'translate(-50px)',}, 
-            // { transform: 'translate(0px)' }
+            { transform: 'translate(-50px)',}, 
+            { transform: 'translate(0px)' }
 
-            { transform: 'scale(1.04)',}, 
-            { transform: 'scale(1.04)' }
+            // { transform: 'scale(1.04)',}, 
+            // { transform: 'scale(1.04)' }
 
           ], { 
 
             // timing options
-            duration: 1000,
+            // duration: 1000,
             iterations: 1
           });
 

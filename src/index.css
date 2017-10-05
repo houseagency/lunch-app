@@ -19,7 +19,7 @@
 
 html, body, #app {
     height: 100%;
-    background-color: #ff5400; 
+    background-color: #F27794; 
     /* F27794 */
     color: #fff;
 }
@@ -40,7 +40,7 @@ a, .info a {
     color: white;
     cursor: pointer;
     align-items: center;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
 }
 
 a:hover {
@@ -64,8 +64,8 @@ header {
     background-size: contain;
     background-position: center;
     margin-top: 20px;
-    width: 220px;
-    height: 220px;
+    width: 180px;
+    height: 180px;
 }
 
 /*------------------------------------------------------------------------------
@@ -88,7 +88,6 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
     display: flex;
     flex-flow: column wrap;
     align-items: center;
-    /* justify-content: center; */
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
@@ -125,7 +124,7 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
     text-align: center;
     width: 100%;
     /* height: 100%; */
-    height:75px;
+    height:77px;
     font-size: 1.6rem;
     padding-top: 1.1rem;
 }
@@ -169,15 +168,16 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
     font-weight: lighter;
     box-sizing: border-box;
     /* border: 1px dotted red; */
-    
 }
 
 .header-container {
-    width: 100%;    
+    width: 100%;   
+    padding: 0; 
 }
 
 h3 {
     padding: 0;
+    margin: 0;
 }
 
 .address-container {
@@ -229,42 +229,32 @@ button:hover {
     padding-right: 1rem;
     padding-left: 1rem;
 }
-.info-link{
+.info-link {
     display: none;
-    /* opacity: 0; */
-    /* text-transform: lowercase; */
-    /* animation: mymove 15s infinite; */
-    /* transition: transform 5000ms ease-in-out; */
-    animation: bounce .5s infinite alternate;
-    
-   
+    animation: bounce .5s infinite alternate;  
 }
-
-/* .animate{
-     animation: mymove 15s infinite;
-}
-
-@keyframes mymove{
-    from {left: 0px;}
-    to {left: 200px;}
-} */
 
 /*------------------------------------------------------------------------------
  Map styling
 ------------------------------------------------------------------------------*/
-
 .map {
     width: 100%;
     height: 300px;
     border: 1px solid white;
     margin-top: 2rem;
 }
+
 /*------------------------------------------------------------------------------
  Media Queries
 ------------------------------------------------------------------------------*/
 @media (min-width: 900px) {  
     body {
         font-size: 1.4rem;
+    }
+
+    .logo-container{
+        width: 220px;
+        height: 220px;
     }
 
     button {
