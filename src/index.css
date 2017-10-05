@@ -239,7 +239,6 @@ button {
     to { transform: scale(1.04); }
 }
 
-
 button:hover {
     box-shadow: 0 2px 7px rgba(0,0,0,.3), 0 0px 1px rgba(0,0,0,.2);
 }
