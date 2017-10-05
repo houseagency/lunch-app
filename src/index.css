@@ -17,10 +17,10 @@
     src: local('Brandon'), local('Brandon'),       
 }
 
-
 html, body, #app {
     height: 100%;
-    background-color: #F27794; 
+    background-color: #ff5400; 
+    /* F27794 */
     color: #fff;
 }
 

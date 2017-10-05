@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../Button/Button';
 import {TweenMax} from 'greensock';
+import { gql, graphql } from 'react-apollo';
 
 class Randomizer extends Component {
 
@@ -90,8 +91,8 @@ class Randomizer extends Component {
     }
 
     render() {
-        const {restaurantList} = this.props;
-
+        const {restaurantList, data } = this.props;
+        console.log(restaurantList);
         const restaurants = [ ...restaurantList, restaurantList[0] ].map((restaurant, index ) => {
             return (
                 <div key={index} className='restaurant-container'>

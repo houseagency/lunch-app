@@ -47,7 +47,7 @@
         "price_range": "$$-$$$",
         "rating": "***",
         "phone": "08-309680",
-        "address": "Rörstrandsgatan 9 ",
+        "address": "Rörstrandsgatan 9",
         "cat_id": "1",
         "img_url": "img/raw.jpg",
         "desc": "Japan meets Europe in an elegant restaurant focusing on the rawness. At Raw sushi and sashimi coexists with hot dishes from the grill, bothmeat and shellfish.",
@@ -59,7 +59,6 @@
     {	
         "restId": "4",
         "name": "Hamburgarstugan",
-        "link": "http://www.hamburgarstugan.se/",
         "menu_link": "http://www.hamburgarstugan.se/wp-content/uploads/2016/04/Meny-Original-A4.pdf",
         "cuisine": "Fast food",
         "price_range": "$",
@@ -77,7 +76,6 @@
     {	
         "restId": "5",
         "name": "Masala Masala",
-        "link": "www.masalamasala.se",
         "menu_link": "http://www.masalamasala.se/lunchmeny/",
         "cuisine": "Indian",
         "price_range": "$$",
@@ -95,7 +93,6 @@
     {	
         "restId": "6",
         "name": "Babel Deli",
-        "link": "http://babeldeli.com/",
         "menu_link": "http://babeldeli.com/wp-content/uploads/2016/02/takeawaywebb2.pdf",
         "cuisine": "Meze",
         "price_range": "$$",
@@ -113,7 +110,6 @@
     {	
         "restId": "7",
         "name": "Arirang",
-        "link": "http://arirang.se/",
         "menu_link": "http://arirang.se/lunch/",
         "cuisine": "Korean",
         "price_range": "$$",

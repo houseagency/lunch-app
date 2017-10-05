@@ -6,14 +6,11 @@ import Home from '../Pages/Home';
 import Randomizer from '../Pages/Randomizer';
 import Info from '../Pages/Info';
 
-class Header extends React.Component  { 
-    render() {
-        return (
-            <header>
-                <div className="logo-container"></div>
-            </header>
-        );
-    }
-}
-    
+const Header = (props) => { 
+    return (
+        <header>
+            <div className="logo-container"></div>
+        </header>
+    );
+}    
 export default Header;
