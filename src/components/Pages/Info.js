@@ -30,7 +30,7 @@ class Info extends Component {
 
                     <p className='details'> { selectedRestaurant.desc } </p>
                     <a target='_blank' 
-                        href={ selectedRestaurant.menu_link }>
+                        href={ selectedRestaurant.menuLink }>
                         To the lunch menu
                     </a>
                     
