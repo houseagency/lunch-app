@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../Button/Button';
-import {TweenMax} from 'greensock';
+import { TweenMax, TweenLite } from 'greensock';
 import { gql, graphql } from 'react-apollo';
 
 class Randomizer extends Component {
@@ -111,7 +111,7 @@ class Randomizer extends Component {
                 <a className="info-link" href='#'ref='link' onClick={ () => this.props.showInfo() } >
                     MORE INFO
                 </a>
-                <a className="moreInfo-link" href='#'ref='link' onClick={ () => this.props.backToStart() } >
+                <a href='#'ref='link' onClick={ () => this.props.backToStart() } >
                     BACK TO START
                 </a>
             </div>
