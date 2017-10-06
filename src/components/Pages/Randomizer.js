@@ -70,24 +70,6 @@ class Randomizer extends Component {
 
     fetchLink = () => {
         document.querySelector('.info-link').style.display = 'block';
-        document.querySelector('.info-link').animate([
-            // keyframes
-            // { transform: 'translateY(-50px)' }, 
-            // { transform: 'translateY(0px)' }
-
-            { transform: 'translate(-50px)',}, 
-            { transform: 'translate(0px)' }
-
-            // { transform: 'scale(1.04)',}, 
-            // { transform: 'scale(1.04)' }
-
-          ], { 
-
-            // timing options
-            // duration: 1000,
-            iterations: 1
-          });
-
     }
 
     /* If new props are sent go to spin method again */ 
