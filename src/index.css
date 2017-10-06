@@ -130,8 +130,9 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
 }
 
 .rest-img {
-    height: auto;
+    max-height: 300px;
     width: 100%;
+    object-fit: cover;
 }
 
 .info {
@@ -268,6 +269,10 @@ button:hover {
         padding-left: 3rem;
         width: 90px;
         height: 90px;
+    }
+
+    .rest-img {
+        max-height: 350px;
     }
 }
 
