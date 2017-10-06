@@ -68,6 +68,8 @@ class Randomizer extends Component {
         });
     }
 
+    /* Function that runs after spinner animation is finnished
+       TODO: Ease in on link */
     fetchLink = () => {
         document.querySelector('.info-link').style.display = 'block';
     }
