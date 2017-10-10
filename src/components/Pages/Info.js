@@ -6,10 +6,6 @@ class Info extends Component {
         const { selectedRestaurant } = this.props;
         return (
             <div className="info-container">
-                {/* <div className='rest-img' 
-                    style='background-image:url({ selectedRestaurant.cuisine })'>
-                    { selectedRestaurant.img_url }
-                </div> */}
                 <img className='rest-img' src={ selectedRestaurant.restImage.url } />
                 <div className='info'>
                     <h1>{ selectedRestaurant.name }</h1>
@@ -42,7 +38,7 @@ class Info extends Component {
                 </div>
                 <Map 
                     position = { selectedRestaurant.position }
-                    zoom = {18}
+                    zoom = { 18 }
                     containerElement ={
                         <div style ={{
                             height: 300, 

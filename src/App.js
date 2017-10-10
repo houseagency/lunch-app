@@ -75,31 +75,6 @@ class App extends Component {
 		}
 	}
 
-		// fetchRestaurants(id) {
-		// 	console.log(id);
-		// 	const res = graphql(gql`
-		// 	query {
-		// 		allRestaurantses (
-		// 		filter: {
-		// 				categoryId_some: {
-		// 			id: cat_id
-		// 		  }
-		// 		}
-		// 	  ){
-		// 			id
-		// 			name
-		// 			restImage {
-		// 				fileName
-		// 				handle
-		// 				url
-		// 				mimeType
-		// 				size
-		// 			}
-		// 		}
-		// 	}`)
-		// 	console.log(res);
-		// }
-
 	render() {
 		// console.log(this.props);
 		return (
