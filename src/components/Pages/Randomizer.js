@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../Button/Button';
 import { TweenMax, TweenLite } from 'greensock';
+// import CustomEase from '../../vendor/CustomEase';
 import { gql, graphql } from 'react-apollo';
 
 class Randomizer extends Component {
@@ -18,7 +19,7 @@ class Randomizer extends Component {
         this.fetchLink = this.fetchLink.bind(this);
     }
 
-    /* Spin that randomizes the value and sets the variables and calls the 
+    /* Spin that randomizes the value and sets the variables and calls the
        moveSpinner method */
     spin() {
         const restList = this.props.restaurantList;
@@ -29,7 +30,7 @@ class Randomizer extends Component {
 
     moveSpinnerOneStep( stepToGoTo, selectedRestaurantIndex, fullSpins ) {
         TweenMax.killTweensOf(this.refs.slots);
-        
+
         /* If step t go to is equal to the restaurantsLenght +1
            The spinns left decreases with one */
         if( stepToGoTo === this.props.restaurantList.length + 1 ) {
@@ -38,8 +39,8 @@ class Randomizer extends Component {
             fullSpins--;
         }
 
-        /* If it the spins that are left is less or equal to zero, and steps 
-           to go to equals the selected restaurant index the the stopSpinner 
+        /* If it the spins that are left is less or equal to zero, and steps
+           to go to equals the selected restaurant index the the stopSpinner
            method is called */
         if( fullSpins <= 0 && stepToGoTo === selectedRestaurantIndex ) {
             this.stopSpinner( stepToGoTo );
@@ -49,7 +50,7 @@ class Randomizer extends Component {
                 y: -stepToGoTo * this.slotHeight,
                 ease: Linear.easeNone,
                 onComplete: () => {
-                    this.moveSpinnerOneStep( 
+                    this.moveSpinnerOneStep(
                         stepToGoTo + 1, selectedRestaurantIndex, fullSpins );
                 }
             });
@@ -61,9 +62,12 @@ class Randomizer extends Component {
     stopSpinner( stepToGoTo ) {
         this.props.onRestaurantSelected( this.selectedRestaurant );
 
-        TweenMax.to( this.refs.slots, 2, {
+        TweenMax.to( this.refs.slots, 2.5, {
             y: -stepToGoTo * this.slotHeight,
-            ease: Elastic.easeOut,
+            ease: Bounce.easeOut,
+
+            
+
             onComplete: () => { this.fetchLink(); }
         });
     }
@@ -74,19 +78,19 @@ class Randomizer extends Component {
         document.querySelector('.info-link').style.display = 'block';
     }
 
-    /* If new props are sent go to spin method again */ 
+    /* If new props are sent go to spin method again */
     componentWillReceiveProps(nextProps) {
         if(nextProps.restaurantList !== this.props.restaurantList) {
             this.spin();
         }
     }
-    
+
     /* From start when this component is called run this lifecycle method */
     componentDidMount() {
         this.spin();
     }
 
-    /* When ...the lifecycle method will end all animations so they do not run 
+    /* When ...the lifecycle method will end all animations so they do not run
     in the background */
     componentWillUnmount() {
         TweenMax.killTweensOf( this.refs.slots );
@@ -118,7 +122,7 @@ class Randomizer extends Component {
                 </a>
             </div>
         );
-    } 
+    }
 }
 
 export default Randomizer;
