@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { gql, graphql } from 'react-apollo';
-
-import './index.css'
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import Home from './components/Pages/Home';
 import Randomizer from './components/Pages/Randomizer';
 import Info from './components/Pages/Info';
 import Button from './components/Button/Button';
-// import Restaurants from './Data/Restaurants.json';
-// import Categories from './Data/Categories.json';
+import './index.css'
 
 class App extends Component {
 	constructor(props) {
@@ -18,13 +15,16 @@ class App extends Component {
 			step: 1,
 			selectedCategory: null,
 			restaurantsList: [],
-			selectedRestaurant: null
+			selectedRestaurant: null,
+			currentPos: {} //NY
 		}
 		//To be able to re-use the methods you bind them to the component they are in
 		this.onRestaurantSelected = this.onRestaurantSelected.bind(this);
 		this.choosenCat = this.choosenCat.bind(this);
 		this.showInfo = this.showInfo.bind(this);
 		this.backToStart = this.backToStart.bind(this);
+		this.getCurrentPos = this.getCurrentPos.bind(this); //NY
+		this.onCurrentPos = this.onCurrentPos.bind(this);
 	}
 
 	//Function called when user press a category button
@@ -32,12 +32,8 @@ class App extends Component {
 	choosenCat (category) {
 		this.setState({
 			step: 2,
-			restaurantsList: this.props.data.allRestaurantses.filter( (item) => { 
-				
-				return item.categoryId.some((cat) => { 
-					return cat.id === category
-				})
-			})
+			selectedCategory: category,
+			restaurantsList: this.props.data.allRestaurantses
 		});
 	}
 
@@ -49,37 +45,75 @@ class App extends Component {
 		this.setState({ selectedRestaurant : restaurant });
 	}
 
+	onCurrentPos(position) {
+		this.setState({ currentPos: {
+			lat: position.coords.latitude,
+			lng: position.coords.longitude } 
+		});
+		console.log(position);
+	}
+
+	getCurrentPos(e) { //NY
+		if ( e.target.checked ) {
+			if ( navigator.geolocation)  {
+				//GLOBAL eller inte varför ytterligare en funktion för att setState?
+				navigator.geolocation.getCurrentPosition(
+					this.onCurrentPos, function() {
+					// handleLocationError(true, infoWindow, map.getCenter());
+					console.log('Error');
+				});
+	
+			} else {
+				// // Browser doesn't support Geolocation
+				// handleLocationError(false, infoWindow, map.getCenter());
+				console.log('Error');
+			}
+		}
+	}
+
+	filterRestaurants(restaurants) {
+		return restaurants.filter( (restaurant) => { 
+			return restaurant.categoryId.some((cat) => { 
+				return cat.id === this.state.selectedCategory;
+			})
+		}).filter( (restaurant) => {
+			if (restaurant.position < 1);
+			return true;
+		})
+	}
+	
 	renderSteps(){
-		if( this.state.step === 1 ) {
+		if ( this.state.step === 1 ) {
 			return (
 				<Home 
 					choosenCat={ this.choosenCat }
+					getCurrentPos={ this.getCurrentPos }
 				/>
 			)
-		} else if( this.state.step === 2 ) {
+		} else if ( this.state.step === 2 ) {
 			return (
 				<Randomizer 
-					restaurantList={ this.state.restaurantsList }
+					restaurantList={ this.filterRestaurants(this.state.restaurantsList) }
 					onRestaurantSelected={ this.onRestaurantSelected }
 					showInfo={ this.showInfo }
 					backToStart={ this.backToStart }
 				/>
 			)		
-		} else if( this.state.step === 3 ) {
+		} else if ( this.state.step === 3 ) {
 			return (
 				<Info 
 					selectedRestaurant={ this.state.selectedRestaurant }
 					backToStart={ this.backToStart }
+					currentPos={ this.state.currentPos } //NY
 				/>
 			)
 		}
 	}
 
 	render() {
-		// console.log(this.props);
 		return (
 			<div className='wrapper'>
-				<Header />	
+				<Header backToStart={ this.backToStart }/>	
 				<main>		
 					{ this.renderSteps() }
 				</main>

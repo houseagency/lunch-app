@@ -4,6 +4,8 @@ import Map from '../Map/Map';
 class Info extends Component {
     render() {
         const { selectedRestaurant } = this.props;
+        const { currentPos } = this.props;
+
         return (
             <div className="info-container">
                 <img className='rest-img' src={ selectedRestaurant.restImage.url } />
@@ -38,7 +40,9 @@ class Info extends Component {
                 </div>
                 <Map 
                     position = { selectedRestaurant.position }
-                    zoom = { 18 }
+                    currentPos = { currentPos }
+                    name = { selectedRestaurant.name }
+                    zoom = { 13 }
                     containerElement ={
                         <div style ={{
                             height: 300, 
@@ -49,7 +53,7 @@ class Info extends Component {
                     mapElement={<div style={{height:100+'%'}} />} 
                 />
 
-                <a className="moreInfo-link" href='#'ref='link' onClick={ () => this.props.backToStart() } >
+                <a href='#'ref='link' onClick={ () => this.props.backToStart() } >
                     BACK TO START
                 </a>
             </div>

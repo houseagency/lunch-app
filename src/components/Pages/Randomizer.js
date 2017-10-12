@@ -65,9 +65,6 @@ class Randomizer extends Component {
         TweenMax.to( this.refs.slots, 2.5, {
             y: -stepToGoTo * this.slotHeight,
             ease: Bounce.easeOut,
-
-            
-
             onComplete: () => { this.fetchLink(); }
         });
     }
@@ -97,7 +94,7 @@ class Randomizer extends Component {
     }
 
     render() {
-        const {restaurantList, data } = this.props;
+        const { restaurantList, data } = this.props;
         console.log(restaurantList);
         const restaurants = [ ...restaurantList, restaurantList[0] ].map((restaurant, index ) => {
             return (

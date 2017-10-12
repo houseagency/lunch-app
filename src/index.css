@@ -32,8 +32,16 @@ body {
     padding: 0;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-weight: lighter;
+    /* text-shadow: 1px 1px 2px #3f3f3f;  */
+    /* text-transform: uppercase; */
+}
+
+h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 1px #3f3f3f; 
 }
 
 a, .info a {
@@ -108,9 +116,7 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
     border-radius: 2px;
     width: 90%;
     box-shadow: 0 4px 8px rgba(0,0,0,.3) inset, 0 0px 1px rgba(0,0,0,.2) inset;
-
     /*padding: 4px 8px; color: black; border: 1px solid #ccc; background: #eee; margin: 0 0 0 -1px;*/
-
     position: relative;
     overflow: hidden;
     height: 99px;
@@ -194,7 +200,7 @@ h3 {
 }
 
 /*------------------------------------------------------------------------------
- Button & link styling
+ Buttons & link styling
 ------------------------------------------------------------------------------*/
 button {
     display: flex;
@@ -215,6 +221,7 @@ button {
     font-size: 1.2rem;
     text-transform: uppercase;
     /*animation: bounce .5s infinite alternate;*/
+    box-shadow: 0 2px 7px rgba(0,0,0,.3), 0 0px 1px rgba(0,0,0,.2);
 }
 
 @keyframes bounce {
@@ -222,7 +229,7 @@ button {
 }
 
 button:hover {
-    box-shadow: 0 2px 7px rgba(0,0,0,.3), 0 0px 1px rgba(0,0,0,.2);
+    /* box-shadow: 0 2px 7px rgba(0,0,0,.3), 0 0px 1px rgba(0,0,0,.2); */
     animation: bounce .7s infinite alternate;
 }
 
@@ -238,9 +245,6 @@ button:hover {
     /* animation: bounce .30s infinite alternate;   */
     animation: pulse_animation 2000ms infinite linear;
     transform-origin:70% 70%;
-    /* animation-duration: 2000ms;
-	animation-iteration-count: infinite linear;
-	animation-timing-function: linear; */
 }
 
 @keyframes pulse_animation {
@@ -254,6 +258,80 @@ button:hover {
 	100% { transform: scale(1); }
 }
 
+.toggle-container {
+    width: 90%;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    text-transform: uppercase;
+    /* border: 1px solid red; */
+    margin-bottom: 2rem;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    /* width: 60px;
+    height: 34px; */
+    width: 90px;
+    height: 44px;
+}
+  
+.switch input {
+    display:none;
+}
+  
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    /* -webkit-transition: .4s; */
+    transition: .4s;
+    /* border-radius: 34px; */
+    border-radius: 44px;
+    box-shadow: 0 1px 5px rgba(0,0,0,.5) inset, 0 0px 1px rgba(0,0,0,.4) inset;
+    box-sizing: border-box;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    /* height: 26px;
+    width: 26px; */
+    height: 36px;
+    width: 36px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #F27794;
+    /* -webkit-transition: .4s; */
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 1px 1px 3px rgba(0,0,0,.5), 0 0px 1px rgba(0,0,0,.4);
+    box-sizing: border-box;
+}
+  
+input:checked + .slider {
+    background-color: #2ead6e;
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px #2ead6e;
+}
+
+input:checked + .slider:before {
+    /* -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px); */
+    transform: translateX(46px);
+}
+
+h4 {
+    margin-top: 1rem;
+}
+  
 /*------------------------------------------------------------------------------
  Map styling
 ------------------------------------------------------------------------------*/
@@ -264,13 +342,20 @@ button:hover {
     margin-top: 2rem;
 }
 
-/* .marker{
-    width: 10vw;
-    height: auto;
-} */
 /*------------------------------------------------------------------------------
  Media Queries
 ------------------------------------------------------------------------------*/
+@media (min-width: 800px) {
+    .toggle-container {
+        flex-flow: row wrap;
+        align-items: flex-start;
+    }
+    
+    h4 {
+        margin-left: 1rem;
+    }
+}
+
 @media (min-width: 900px) {
     body {
         font-size: 1.4rem;
@@ -293,6 +378,11 @@ button:hover {
         width: 90px;
         height: 90px;
     }
+    .toggle-container {
+        width: 80%;
+    }
+
+    
 
     .rest-img {
         max-height: 350px;
