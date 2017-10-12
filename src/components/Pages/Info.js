@@ -27,30 +27,30 @@ class Info extends Component {
                 <div className='info'>
 
                     <p className='details'> { selectedRestaurant.desc } </p>
-                    <a target='_blank' 
+                    <a target='_blank'
                         href={ selectedRestaurant.menuLink }>
                         To the lunch menu
                     </a>
-                    
+
                 </div>
                 <div className='section-divider'>
                     <div className='header-container'>
                         <h3>LOCATION</h3>
                     </div>
                 </div>
-                <Map 
+                <Map
                     position = { selectedRestaurant.position }
                     currentPos = { currentPos }
                     name = { selectedRestaurant.name }
                     zoom = { 13 }
                     containerElement ={
                         <div style ={{
-                            height: 300, 
+                            height: 300,
                             width:`100%`,
                             marginTop: 20
                         }} />
                     }
-                    mapElement={<div style={{height:100+'%'}} />} 
+                    mapElement={<div style={{height:100+'%'}} />}
                 />
 
                 <a href='#'ref='link' onClick={ () => this.props.backToStart() } >

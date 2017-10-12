@@ -95,7 +95,7 @@ class Randomizer extends Component {
 
     render() {
         const { restaurantList, data } = this.props;
-        console.log(restaurantList);
+        // console.log(restaurantList);
         const restaurants = [ ...restaurantList, restaurantList[0] ].map((restaurant, index ) => {
             return (
                 <div key={index} className='restaurant-container'>
