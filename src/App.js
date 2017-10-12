@@ -50,7 +50,6 @@ class App extends Component {
 			lat: position.coords.latitude,
 			lng: position.coords.longitude }
 		});
-		// console.log(position);
 	}
 
 	getCurrentPos(e) { 
@@ -77,39 +76,32 @@ class App extends Component {
 
 	filterRestaurants(restaurants) {
 		return restaurants
-						.filter( (restaurant) => {
-							return restaurant.categoryId.some((cat) => {
-								return cat.id === this.state.selectedCategory;
-							})
-						})
-						.filter( (restaurant) => {
-							if (this.state.currentPos) { 
-								const restLongLat = new google.maps.LatLng({lat: restaurant.position.lat, lng: restaurant.position.lng});
-								const myLongLat = new google.maps.LatLng({lat: this.state.currentPos.lat, lng: this.state.currentPos.lng});
-									
-								//computeDistanceBetween = built in function in google maps
-								//that calculates the distance between two locations
-								const distance = google.maps.geometry.spherical.computeDistanceBetween(
-									restLongLat, 
-									myLongLat
-								);
-								
-								// Add distance here
-								// if restaurant is == to true return true
-								// otherwise is it false
-								
-								// if (distance < 1000) {
-								// 	return restaurantList.filter(restaurant);
-
-								// } else { 
-								// 	return false;
-								// }
-
-								console.log(restaurant.name, distance);
-
-							}	
-							return true;
-						})
+			.filter( (restaurant) => {
+				return restaurant.categoryId.some((cat) => {
+					return cat.id === this.state.selectedCategory;
+				})
+			})
+			.filter( (restaurant) => {
+				if (this.state.currentPos) { 
+					const restLongLat = new google.maps.LatLng({lat: restaurant.position.lat, lng: restaurant.position.lng});
+					const myLongLat = new google.maps.LatLng({lat: this.state.currentPos.lat, lng: this.state.currentPos.lng});
+						
+					//computeDistanceBetween = built in function in google maps
+					//that calculates the distance between two locations
+					const distance = google.maps.geometry.spherical.computeDistanceBetween(
+						restLongLat, 
+						myLongLat
+					);
+					
+					// if distance is more then 500 m return return false 
+					// meaning the restaurant will not show up
+					if (distance > 500) {
+						return false;
+					} 
+					console.log(restaurant.name, distance);
+				}	
+				return true;
+			})
 	}
 
 	renderSteps(){ 

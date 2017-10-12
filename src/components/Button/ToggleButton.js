@@ -11,7 +11,7 @@ const ToggleButton = ( props ) => {
                 />
                 <span className='slider'></span>
             </label>
-            <h4>Filter on nearby restaurants</h4>
+            <h4>Filter on nearby restaurants (within 500 m)</h4>
         </div>
     );
 }
