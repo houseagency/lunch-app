@@ -11,14 +11,20 @@ import './index.css'
 class App extends Component {
 	constructor(props) {
 		super(props);
+		
 		this.state = {
 			step: 1,
 			selectedCategory: null,
 			restaurantsList: [],
 			selectedRestaurant: null,
-			currentPos: null
+			currentPos: null,
+			// 2017-10-13
+			// set NEW value isLocationBased a 'FLAG' in constructor 
+			isLocationBased: false
 		}
+
 		//To be able to re-use the methods you bind them to the component they are in
+		// SMART TIPS: MAke a init function for all bind values and yhen just call the init function value
 		this.onRestaurantSelected = this.onRestaurantSelected.bind(this);
 		this.choosenCat = this.choosenCat.bind(this);
 		this.showInfo = this.showInfo.bind(this);
@@ -37,7 +43,10 @@ class App extends Component {
 		});
 	}
 
-	backToStart() { this.setState({ step: 1 }); }
+	// 2017-10-13
+	// isLocationBased, set to reload the button on start page set it to false 
+	// for it to reload so click button several times
+	backToStart() { this.setState({ step: 1, isLocationBased : false }); }
 
 	showInfo() { this.setState({ step: 3 }); }
 
@@ -50,28 +59,35 @@ class App extends Component {
 			lat: position.coords.latitude,
 			lng: position.coords.longitude }
 		});
-		console.log('min position',this.state.currentPos);
+		// console.log('min position',this.state.currentPos);
 	} 
 
+	// 2017-10-13
+	// this.setState({ isLocationBased: true }); set to true
 	getCurrentPos(e) { 
+		this.setState({ isLocationBased: true });
 		if ( e.target.checked ) {
 			if ( navigator.geolocation)  {
 				//GLOBAL eller inte varför ytterligare en funktion för att setState?
 				navigator.geolocation.getCurrentPosition(
-					this.onCurrentPos, function() {
+					this.onCurrentPos, function () {
 					// handleLocationError(true, infoWindow, map.getCenter());
 					// console.log('Error');
 				});
 
 			} else {
-				// // Browser doesn't support Geolocation
-				// handleLocationError(false, infoWindow, map.getCenter());
-				this.setState({ currentPos: null });
+				// Browser doesn't support Geolocation
+			
+				// 2017-10-13
+				// this.setState, set to false
+				this.setState({ currentPos: null, isLocationBased: false });
 				// console.log('Error');
 			}
 
 		} else {
-			this.setState({ currentPos: null });
+			// 2017-10-13
+			// this.setState, set to false two times ?????
+			this.setState({ currentPos: null, isLocationBased: false });
 		}
 	}
 
@@ -96,7 +112,7 @@ class App extends Component {
 					
 					// if distance is more then 500 m return return false 
 					// meaning the restaurant will not show up
-					if (distance > 1000) {
+					if (distance > 500) {
 						return false;
 					} 
 					console.log(restaurant.name, distance);
@@ -121,6 +137,9 @@ class App extends Component {
 					showInfo={ this.showInfo }
 					currentPos={ this.state.currentPos }
 					backToStart={ this.backToStart }
+					//2017-10-13: render isLocationBased 
+					isLocationBased={this.state.isLocationBased}
+					
 				/>
 			)
 		} else if ( this.state.step === 3 ) {

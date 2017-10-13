@@ -90,8 +90,11 @@ class Randomizer extends Component {
     }
 
     /* From start when this component is called run this lifecycle method */
+    //2017-10-13
+    // set the isLocationBase in componentDidMount, instead of currPos that we had before
+    //setting the new value isLocationBased
     componentDidMount() {
-        if( !this.props.currentPos ) {
+        if( !this.props.isLocationBased ) {
             this.spin();
         }
     }
@@ -103,8 +106,9 @@ class Randomizer extends Component {
     }
 
     render() {
-        const { restaurantList, data, currentPos } = this.props;
+        const { restaurantList, data, currentPos, isLocationBased } = this.props;
         console.log("restList", restaurantList);
+        
         //TODO: ska vi ändra till att inte köra spread??
         const restaurants = [ ...restaurantList, restaurantList[0] ].map((restaurant, index ) => {
             return (
@@ -114,22 +118,27 @@ class Randomizer extends Component {
             )
         });
 
+         //2017-10-13
+         // render in style opacity: isLocationBased && !currentPos ? 0 : 1
+         // making an if statement
         return (
-            <div className='randomizer-container'>
-                { currentPos }
-                <div className='slot-machine'>
-                    <div ref='slots' className='slot-container'>
-                        {restaurants}
+                <div className='randomizer-container'>
+                    
+                    <div className='slot-machine' style={ {
+                        opacity: isLocationBased && !currentPos ? 0 : 1
+                    } }>
+                        <div ref='slots' className='slot-container'>
+                            {restaurants}
+                        </div>
                     </div>
+                    <a className="info-link" href='#'ref='link' onClick={ () => this.props.showInfo() } >
+                        MORE INFO
+                    </a>
+                    <a href='#'ref='link' onClick={ () => this.props.backToStart() } >
+                        BACK TO START
+                    </a>
                 </div>
-                <a className="info-link" href='#'ref='link' onClick={ () => this.props.showInfo() } >
-                    MORE INFO
-                </a>
-                <a href='#'ref='link' onClick={ () => this.props.backToStart() } >
-                    BACK TO START
-                </a>
-            </div>
-        );
+              );
     }
 }
 
