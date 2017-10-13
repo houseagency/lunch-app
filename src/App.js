@@ -50,7 +50,8 @@ class App extends Component {
 			lat: position.coords.latitude,
 			lng: position.coords.longitude }
 		});
-	}
+		console.log('min position',this.state.currentPos);
+	} 
 
 	getCurrentPos(e) { 
 		if ( e.target.checked ) {
@@ -95,7 +96,7 @@ class App extends Component {
 					
 					// if distance is more then 500 m return return false 
 					// meaning the restaurant will not show up
-					if (distance > 500) {
+					if (distance > 1000) {
 						return false;
 					} 
 					console.log(restaurant.name, distance);
@@ -118,6 +119,7 @@ class App extends Component {
 					restaurantList={ this.filterRestaurants(this.state.restaurantsList) }
 					onRestaurantSelected={ this.onRestaurantSelected }
 					showInfo={ this.showInfo }
+					currentPos={ this.state.currentPos }
 					backToStart={ this.backToStart }
 				/>
 			)

@@ -5,7 +5,8 @@ class Info extends Component {
     render() {
         const { selectedRestaurant } = this.props;
         const { currentPos } = this.props;
-
+        const rating = selectedRestaurant.rating;
+        console.log(rating);
         return (
             <div className="info-container">
                 <img className='rest-img' src={ selectedRestaurant.restImage.url } />
