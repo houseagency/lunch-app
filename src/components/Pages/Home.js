@@ -9,6 +9,8 @@ class Home extends Component {
     render() {
         const { choosenCat, data } = this.props;
         const { getCurrentPos } = this.props;
+        const { isLoadingPos } = this.props;
+        // const displayLoad = this.props.isLoadingPos ? 'block' : 'none';
         const allCategorieses = data.allCategorieses;
 
         if ( !allCategorieses ) {
@@ -20,6 +22,7 @@ class Home extends Component {
                 <ToggleButton 
                     onClick={ getCurrentPos }
                 />
+                {/* <div className='loading-icon' style={ {displayLoad} }></div> */}
                 { allCategorieses.map((item, index) => {
                     return (
                         <Button 

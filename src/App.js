@@ -18,34 +18,59 @@ class App extends Component {
 			restaurantsList: [],
 			selectedRestaurant: null,
 			currentPos: null,
-			// 2017-10-13
-			// set NEW value isLocationBased a 'FLAG' in constructor 
-			isLocationBased: false
+			isLocationBased: false,
+			isFiltering: false,
+			// isLoadingPos: false
 		}
 
-		//To be able to re-use the methods you bind them to the component they are in
-		// SMART TIPS: MAke a init function for all bind values and yhen just call the init function value
+		/* To be able to re-use the methods you bind them to the component 
+		   SMART TIPS: MAke a init function for all bind values and yhen just 
+		   call the init function value */
 		this.onRestaurantSelected = this.onRestaurantSelected.bind(this);
 		this.choosenCat = this.choosenCat.bind(this);
 		this.showInfo = this.showInfo.bind(this);
 		this.backToStart = this.backToStart.bind(this);
 		this.getCurrentPos = this.getCurrentPos.bind(this);
 		this.onCurrentPos = this.onCurrentPos.bind(this);
+		this.filterOnCat = this.filterOnCat.bind(this);
+		this.filterOnLocation = this.filterOnLocation.bind(this);
+
+		// console.log( 'isloading: ' + this.state.isLoadingPos)
 	}
 
-	//Function called when user press a category button
-	//Filter function that filter out the item you want from the array
+	//Function called when user presses a category button
 	choosenCat (category) {
 		this.setState({
-			step: 2,
-			selectedCategory: category,
-			restaurantsList: this.props.data.allRestaurantses
+			isFiltering: true,
+			// isLoadingPos: true
 		});
+		if ( this.state.isLocationBased ){
+			this.filterOnCat(this.props.data.allRestaurantses, category).then((resturants) => {
+				this.filterOnLocation(resturants).then((resturants) => {
+					this.setState({
+						step: 2,
+						selectedCategory: category,
+						restaurantsList: resturants,
+						isFiltering: false,
+						// isLoadingPos: false
+					});
+				})
+			})
+		} else {
+			this.filterOnCat(this.props.data.allRestaurantses, category).then((resturants) => {
+				this.setState({
+					step: 2,
+					selectedCategory: category,
+					restaurantsList: resturants,
+					isFiltering: false,
+					// isLoadingPos: false
+				})
+			})
+		}
 	}
 
-	// 2017-10-13
-	// isLocationBased, set to reload the button on start page set it to false 
-	// for it to reload so click button several times
+	/* When this function is called set isLocationBased to false 
+	   for it to reload so click button several times */
 	backToStart() { this.setState({ step: 1, isLocationBased : false }); }
 
 	showInfo() { this.setState({ step: 3 }); }
@@ -55,96 +80,100 @@ class App extends Component {
 	}
 
 	onCurrentPos(position) {
-		this.setState({ currentPos: {
-			lat: position.coords.latitude,
-			lng: position.coords.longitude }
+		this.setState({ 
+			currentPos: {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude 
+			},
+			isLoadingPos: false
 		});
 		// console.log('min position',this.state.currentPos);
 	} 
 
-	// 2017-10-13
-	// this.setState({ isLocationBased: true }); set to true
+	// If filter is location based set state to true
 	getCurrentPos(e) { 
 		this.setState({ isLocationBased: true });
+
 		if ( e.target.checked ) {
 			if ( navigator.geolocation)  {
-				//GLOBAL eller inte varför ytterligare en funktion för att setState?
 				navigator.geolocation.getCurrentPosition(
 					this.onCurrentPos, function () {
-					// handleLocationError(true, infoWindow, map.getCenter());
-					// console.log('Error');
 				});
 
 			} else {
-				// Browser doesn't support Geolocation
-			
-				// 2017-10-13
-				// this.setState, set to false
+				// Browser doesn't support Geolocation???!!!!
+				// If not location based set state to false
 				this.setState({ currentPos: null, isLocationBased: false });
 				// console.log('Error');
 			}
 
 		} else {
-			// 2017-10-13
-			// this.setState, set to false two times ?????
 			this.setState({ currentPos: null, isLocationBased: false });
 		}
 	}
-
-	filterRestaurants(restaurants) {
-		return restaurants
-			.filter( (restaurant) => {
+	/* Filter function that filter the choosen category */
+	filterOnCat(restaurantList, category) {
+		return new Promise((resolve, reject) => {
+			const newList = restaurantList.filter( (restaurant) => {
 				return restaurant.categoryId.some((cat) => {
-					return cat.id === this.state.selectedCategory;
-				})
-			})
-			.filter( (restaurant) => {
-				if (this.state.currentPos) { 
-					const restLongLat = new google.maps.LatLng({lat: restaurant.position.lat, lng: restaurant.position.lng});
-					const myLongLat = new google.maps.LatLng({lat: this.state.currentPos.lat, lng: this.state.currentPos.lng});
-						
-					//computeDistanceBetween = built in function in google maps
-					//that calculates the distance between two locations
-					const distance = google.maps.geometry.spherical.computeDistanceBetween(
-						restLongLat, 
-						myLongLat
-					);
+					return cat.id === category;
+				});
+			});
+			resolve( newList );
+		});
+	}
+
+	filterOnLocation(restaurantList) {
+		return new Promise((resolve, reject) => {
+			const geoList = restaurantList.filter( (restaurant) => {
+				const restLongLat = new google.maps.LatLng({lat: restaurant.position.lat, lng: restaurant.position.lng});
+				const myLongLat = new google.maps.LatLng({lat: this.state.currentPos.lat, lng: this.state.currentPos.lng});
 					
-					// if distance is more then 500 m return return false 
-					// meaning the restaurant will not show up
-					if (distance > 500) {
-						return false;
-					} 
-					console.log(restaurant.name, distance);
-				}	
-				return true;
-			})
+				/* computeDistanceBetween = built in function in google maps
+					that calculates the distance between two locations*/
+				const distance = google.maps.geometry.spherical.computeDistanceBetween(
+					restLongLat, 
+					myLongLat
+				);
+				
+				/* if distance is more then 500 m return return false 
+					restaurant further away will not be added to array */
+				if (distance < 500) {
+					return restaurant
+				}
+				console.log(restaurant.name, distance);	
+			});
+			resolve( geoList );
+		});
 	}
 
 	renderSteps(){ 
 		if ( this.state.step === 1 ) {
 			return (
 				<Home
+					// Props sent to Home component 
 					choosenCat={ this.choosenCat }
 					getCurrentPos={ this.getCurrentPos }
+
 				/>
 			)
 		} else if ( this.state.step === 2 ) {
 			return (
 				<Randomizer
-					restaurantList={ this.filterRestaurants(this.state.restaurantsList) }
+					// Props sent to Randomizer component
+					restaurantList={ this.state.restaurantsList }
 					onRestaurantSelected={ this.onRestaurantSelected }
 					showInfo={ this.showInfo }
 					currentPos={ this.state.currentPos }
 					backToStart={ this.backToStart }
-					//2017-10-13: render isLocationBased 
-					isLocationBased={this.state.isLocationBased}
-					
+					isLocationBased={ this.state.isLocationBased }
+					isFiltering={ this.state.isFiltering }
 				/>
 			)
 		} else if ( this.state.step === 3 ) {
 			return (
 				<Info
+					// Props sent to Info page component
 					selectedRestaurant={ this.state.selectedRestaurant }
 					backToStart={ this.backToStart }
 					currentPos={ this.state.currentPos }
@@ -165,6 +194,7 @@ class App extends Component {
 		);
 	}
 }
+// Query that fetches the data from the CMS
 export default graphql(gql`
 query {
 	allRestaurantses {

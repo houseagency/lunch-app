@@ -5,12 +5,9 @@ import { TweenMax, TweenLite } from 'greensock';
 import { gql, graphql } from 'react-apollo';
 
 class Randomizer extends Component {
-
     slotHeight = 99;
     selectedRestaurant;
 
-    /* You set constructor when making global functions?
-       If you want to reuse the functions????? */
     constructor(props) {
         super(props);
         this.spin = this.spin.bind(this);
@@ -24,7 +21,7 @@ class Randomizer extends Component {
        moveSpinner method */
     spin() {
         this.isSpinning = true;
-        const restList = this.props.restaurantList; //HÄR BLIR DET FEL???
+        const restList = this.props.restaurantList;
         const randomRestIndex = Math.floor( Math.random() * restList.length );
         this.selectedRestaurant = restList[ randomRestIndex ];
         this.moveSpinnerOneStep( 1, randomRestIndex === 0 ? restList.length : randomRestIndex, 6);
@@ -34,8 +31,8 @@ class Randomizer extends Component {
     moveSpinnerOneStep( nextStep, selectedRestaurantIndex, fullSpins ) {
         TweenMax.killTweensOf(this.refs.slots);
 
-        /* If step t go to is equal to the restaurantsLenght +1
-           The spinns left decreases with one */
+        /* If next step is equal to the restaurantsLenght +1
+           The spinns left decreases with one (starting from 6) */
         if( nextStep === this.props.restaurantList.length + 1 ) {
             nextStep = 1;
             TweenMax.set( this.refs.slots, { y : 0 } );
@@ -82,34 +79,35 @@ class Randomizer extends Component {
     }
 
     /* If new props are sent go to spin method again */
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.restaurantList !== this.props.restaurantList ) {
-            console.log('isspinning', this.isSpinning)
-            this.spin();
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if(nextProps.isFiltering !== this.props.isFiltering && nextProps.isFiltering ) {
+    //         this.spin();
+    //     }
+    // }
 
-    /* From start when this component is called run this lifecycle method */
-    //2017-10-13
-    // set the isLocationBase in componentDidMount, instead of currPos that we had before
-    //setting the new value isLocationBased
+    /* From start when this component is called run this lifecycle method
+       set the isLocationBase in componentDidMount, instead of currPos that we 
+       had before setting the new value isLocationBased */
     componentDidMount() {
-        if( !this.props.isLocationBased ) {
+        if( !this.props.isFiltering ) {
             this.spin();
         }
     }
 
     /* When ...the lifecycle method will end all animations so they do not run
-    in the background */
+       in the background */
     componentWillUnmount() {
         TweenMax.killTweensOf( this.refs.slots );
     }
 
     render() {
-        const { restaurantList, data, currentPos, isLocationBased } = this.props;
+        const { restaurantList, data, currentPos, isLocationBased, isFiltering } = this.props;
         console.log("restList", restaurantList);
         
-        //TODO: ska vi ändra till att inte köra spread??
+        if ( isFiltering ) {
+            return false;
+        }
+
         const restaurants = [ ...restaurantList, restaurantList[0] ].map((restaurant, index ) => {
             return (
                 <div key={index} className='restaurant-container'>
@@ -118,12 +116,10 @@ class Randomizer extends Component {
             )
         });
 
-         //2017-10-13
-         // render in style opacity: isLocationBased && !currentPos ? 0 : 1
-         // making an if statement
+        /* If isLocationBased and not current Pos is true set opacity to 0 
+           else it is 1 */
         return (
-                <div className='randomizer-container'>
-                    
+                <div className='randomizer-container'> 
                     <div className='slot-machine' style={ {
                         opacity: isLocationBased && !currentPos ? 0 : 1
                     } }>

@@ -116,7 +116,6 @@ main, .btn-container, .randomizer-container, .slot-machine, .slot-container,
     border-radius: 2px;
     width: 90%;
     box-shadow: 0 4px 8px rgba(0,0,0,.3) inset, 0 0px 1px rgba(0,0,0,.2) inset;
-    /*padding: 4px 8px; color: black; border: 1px solid #ccc; background: #eee; margin: 0 0 0 -1px;*/
     position: relative;
     overflow: hidden;
     height: 99px;
@@ -330,6 +329,20 @@ input:checked + .slider:before {
 
 h4 {
     margin-top: 1rem;
+}
+
+.loading-icon {
+    animation: loadspin 1s infinite;
+    border-radius: 50%;
+    border: 6px solid white;
+    border-top: 6px solid #222;
+    height: 3rem;
+    width: 3rem;
+}
+
+@keyframes loadspin {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg); }
 }
   
 /*------------------------------------------------------------------------------
