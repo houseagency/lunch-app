@@ -10,17 +10,17 @@ import './index.css'
 
 class App extends Component {
 	constructor(props) {
-		super(props);
-		
+		super(props);	
 		this.state = {
 			step: 1,
 			selectedCategory: null,
 			restaurantsList: [],
 			selectedRestaurant: null,
 			currentPos: null,
+			// timeStamp: null,
+			currentPosTimeStamp: null,
 			isLocationBased: false,
 			isFiltering: false,
-			// isLoadingPos: false
 		}
 
 		/* To be able to re-use the methods you bind them to the component 
@@ -33,16 +33,15 @@ class App extends Component {
 		this.getCurrentPos = this.getCurrentPos.bind(this);
 		this.onCurrentPos = this.onCurrentPos.bind(this);
 		this.filterOnCat = this.filterOnCat.bind(this);
+		this.shouldPosBeUpdated = this.shouldPosBeUpdated.bind(this);
 		this.filterOnLocation = this.filterOnLocation.bind(this);
-
-		// console.log( 'isloading: ' + this.state.isLoadingPos)
+		this.handlePosToggle = this.handlePosToggle.bind(this);
 	}
 
 	//Function called when user presses a category button
 	choosenCat (category) {
 		this.setState({
 			isFiltering: true,
-			// isLoadingPos: true
 		});
 		if ( this.state.isLocationBased ){
 			this.filterOnCat(this.props.data.allRestaurantses, category).then((resturants) => {
@@ -52,8 +51,9 @@ class App extends Component {
 						selectedCategory: category,
 						restaurantsList: resturants,
 						isFiltering: false,
-						// isLoadingPos: false
+						// shouldPosBeUpdated()
 					});
+					this.shouldPosBeUpdated();
 				})
 			})
 		} else {
@@ -63,7 +63,6 @@ class App extends Component {
 					selectedCategory: category,
 					restaurantsList: resturants,
 					isFiltering: false,
-					// isLoadingPos: false
 				})
 			})
 		}
@@ -71,46 +70,61 @@ class App extends Component {
 
 	/* When this function is called set isLocationBased to false 
 	   for it to reload so click button several times */
-	backToStart() { this.setState({ step: 1, isLocationBased : false }); }
+	backToStart() { this.setState({ step: 1  }); }
 
 	showInfo() { this.setState({ step: 3 }); }
 
 	onRestaurantSelected( restaurant ) {
 		this.setState({ selectedRestaurant : restaurant });
 	}
+	//IF toggle btn is checked then get current position
+	handlePosToggle(e) {
+		this.setState({ isLocationBased: true });
+		if ( e.target.checked ) { 
+			this.getCurrentPos() 
+		} else { 
+			this.setState({ 
+				currentPos: null, 
+				isLocationBased: false 
+			});
+		}
+	}
+
+	shouldPosBeUpdated() {
+		let currentTime = new Date();
+		if (Math.floor((currentTime - this.state.currentPosTimeStamp)/60000) >= 1 ) {
+			this.getCurrentPos();
+			console.log('uppdaterar');
+		} else {
+			console.log('behåller gamla positionen');
+		}
+	}
+
+	getCurrentPos() { 
+		this.setState({ isLocationBased: true });
+		if ( navigator.geolocation)  {
+			navigator.geolocation.getCurrentPosition(
+				this.onCurrentPos, function () {
+			});
+
+		} else {
+			// Browser doesn't support Geolocation???!!!!
+			this.setState({ currentPos: null, isLocationBased: false });
+		}
+	}
 
 	onCurrentPos(position) {
+		let timeStamp= new Date();
 		this.setState({ 
 			currentPos: {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude 
 			},
-			isLoadingPos: false
+			currentPosTimeStamp: timeStamp
 		});
-		// console.log('min position',this.state.currentPos);
+		console.log('current time stamp' + this.state.currentPosTimeStamp);
 	} 
 
-	// If filter is location based set state to true
-	getCurrentPos(e) { 
-		this.setState({ isLocationBased: true });
-
-		if ( e.target.checked ) {
-			if ( navigator.geolocation)  {
-				navigator.geolocation.getCurrentPosition(
-					this.onCurrentPos, function () {
-				});
-
-			} else {
-				// Browser doesn't support Geolocation???!!!!
-				// If not location based set state to false
-				this.setState({ currentPos: null, isLocationBased: false });
-				// console.log('Error');
-			}
-
-		} else {
-			this.setState({ currentPos: null, isLocationBased: false });
-		}
-	}
 	/* Filter function that filter the choosen category */
 	filterOnCat(restaurantList, category) {
 		return new Promise((resolve, reject) => {
@@ -147,14 +161,14 @@ class App extends Component {
 		});
 	}
 
-	renderSteps(){ 
+	renderSteps() { 
 		if ( this.state.step === 1 ) {
 			return (
 				<Home
 					// Props sent to Home component 
 					choosenCat={ this.choosenCat }
-					getCurrentPos={ this.getCurrentPos }
-
+					isLocationBased={ this.state.isLocationBased }
+					handlePosToggle= {this.handlePosToggle}
 				/>
 			)
 		} else if ( this.state.step === 2 ) {
@@ -166,8 +180,6 @@ class App extends Component {
 					showInfo={ this.showInfo }
 					currentPos={ this.state.currentPos }
 					backToStart={ this.backToStart }
-					isLocationBased={ this.state.isLocationBased }
-					isFiltering={ this.state.isFiltering }
 				/>
 			)
 		} else if ( this.state.step === 3 ) {

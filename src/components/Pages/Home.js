@@ -9,20 +9,24 @@ class Home extends Component {
     render() {
         const { choosenCat, data } = this.props;
         const { getCurrentPos } = this.props;
+        const { handlePosToggle } = this.props;
         const { isLoadingPos } = this.props;
-        // const displayLoad = this.props.isLoadingPos ? 'block' : 'none';
+        const { isLocationBased } = this.props;
+        const { isFiltering } = this.props ? 'block' : 'none';//FUNKAR EJ DISABLA KNAPPARNA SAMTIDIGT
         const allCategorieses = data.allCategorieses;
 
         if ( !allCategorieses ) {
             return false;
         }
-
+        //TODO; If display load disable buttons..
         return (
             <div className="btn-container">	
                 <ToggleButton 
-                    onClick={ getCurrentPos }
+                    onClick={ handlePosToggle }
+                    isLocationBased={ isLocationBased }
                 />
-                {/* <div className='loading-icon' style={ {displayLoad} }></div> */}
+                {/* VISAS HELA TIDEN hela tiden */}
+                {/* <div className='loading-icon' style={ {isFiltering} }></div> */}
                 { allCategorieses.map((item, index) => {
                     return (
                         <Button 

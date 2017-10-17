@@ -7,7 +7,8 @@ const ToggleButton = ( props ) => {
                 {/* {this.state.isToggleOn ? 'ON' : 'OFF'} */}
                 <input 
                     type='checkbox' 
-                    onClick={ (e) => { props.onClick(e) }  }
+                    onClick={ (e) => { props.onClick(e) } }
+                    defaultChecked={ props.isLocationBased ? true : false }
                 />
                 <span className='slider'></span>
             </label>

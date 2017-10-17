@@ -78,20 +78,11 @@ class Randomizer extends Component {
         document.querySelector('.info-link').style.display = 'block';
     }
 
-    /* If new props are sent go to spin method again */
-    // componentWillReceiveProps(nextProps) {
-    //     if(nextProps.isFiltering !== this.props.isFiltering && nextProps.isFiltering ) {
-    //         this.spin();
-    //     }
-    // }
-
     /* From start when this component is called run this lifecycle method
        set the isLocationBase in componentDidMount, instead of currPos that we 
        had before setting the new value isLocationBased */
     componentDidMount() {
-        if( !this.props.isFiltering ) {
-            this.spin();
-        }
+        this.spin();
     }
 
     /* When ...the lifecycle method will end all animations so they do not run
@@ -101,12 +92,8 @@ class Randomizer extends Component {
     }
 
     render() {
-        const { restaurantList, data, currentPos, isLocationBased, isFiltering } = this.props;
+        const { restaurantList, data, currentPos } = this.props;
         console.log("restList", restaurantList);
-        
-        if ( isFiltering ) {
-            return false;
-        }
 
         const restaurants = [ ...restaurantList, restaurantList[0] ].map((restaurant, index ) => {
             return (
@@ -116,13 +103,9 @@ class Randomizer extends Component {
             )
         });
 
-        /* If isLocationBased and not current Pos is true set opacity to 0 
-           else it is 1 */
         return (
                 <div className='randomizer-container'> 
-                    <div className='slot-machine' style={ {
-                        opacity: isLocationBased && !currentPos ? 0 : 1
-                    } }>
+                    <div className='slot-machine'>
                         <div ref='slots' className='slot-container'>
                             {restaurants}
                         </div>
