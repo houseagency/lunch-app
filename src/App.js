@@ -21,7 +21,8 @@ class App extends Component {
 			currentPosTimeStamp: null,
 			isLocationBased: false,
 			isFiltering: false,
-			isLoading: false
+			isLoading: false,
+			disabled: false
 		}
 
 		/* To be able to re-use the methods you bind them to the component 
@@ -180,6 +181,7 @@ class App extends Component {
 					isLocationBased={ this.state.isLocationBased }
 					handlePosToggle= {this.handlePosToggle}
 					isLoading = { this.state.isLoading }
+					disabled = { this.state.disabled }
 				/>
 			)
 		} else if ( this.state.step === 2 ) {

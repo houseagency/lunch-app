@@ -219,7 +219,6 @@ button {
     cursor: pointer;
     font-size: 1.2rem;
     text-transform: uppercase;
-    /*animation: bounce .5s infinite alternate;*/
     box-shadow: 0 2px 7px rgba(0,0,0,.3), 0 0px 1px rgba(0,0,0,.2);
 }
 
@@ -228,7 +227,6 @@ button {
 }
 
 button:hover {
-    /* box-shadow: 0 2px 7px rgba(0,0,0,.3), 0 0px 1px rgba(0,0,0,.2); */
     animation: bounce .7s infinite alternate;
 }
 
@@ -264,7 +262,6 @@ button:hover {
     flex-flow: column wrap;
     align-items: center;
     text-transform: uppercase;
-    /* border: 1px solid red; */
     margin-bottom: 2rem;
 }
 
@@ -332,6 +329,11 @@ h4 {
     margin-top: 1rem;
 }
 
+.loading-container {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
 .loading-icon {
     animation: loadspin 1s infinite;
     border-radius: 50%;

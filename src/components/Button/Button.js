@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
-const Button = ( props ) => { 
+const Button = ( {catBtn, onClick, btnIcon, btnTxt, disabled} ) => { 
     return (
-        <button className={ props.catBtn } onClick={ props.onClick }>
-            <img className='btn-icon' src={ props.btnIcon } /> 
-            <span>{ props.btnTxt }</span>
+        <button 
+            className={ catBtn } 
+            style={ { opacity : disabled ? 0.2 : 1 } } 
+            onClick={ onClick } 
+            disabled={ disabled }>
+            <img className='btn-icon' src={ btnIcon } /> 
+            <span>{ btnTxt }</span>
         </button>
     );
 }

@@ -12,6 +12,7 @@ class Home extends Component {
         const { handlePosToggle } = this.props;
         const { isLoadingPos } = this.props;
         const { isLocationBased } = this.props;
+        const { disabled } = this.props;
         const allCategorieses = data.allCategorieses;
 
         // console.log(this.props.isLoading);
@@ -19,7 +20,6 @@ class Home extends Component {
         if ( !allCategorieses ) {
             return false;
         }
-        //TODO; If display load disable buttons..
         return (
             <div className="btn-container">	
                 <ToggleButton 
@@ -28,9 +28,13 @@ class Home extends Component {
                 />
                 {/* && is another a shorter way to make a if statement */}
                 { this.props.isLoading &&
-                    <div className='loading-icon' ></div> }
-                
-                { allCategorieses.map((item, index) => {
+                    <div className='loading-container'>
+                        <div className='loading-icon' ></div>
+                        <p>Loading position...</p>
+                    </div>
+                }
+                {/* FÖR ATT DÖLJA KNAPPARNA HELT WHEN LOADING!this.props.isLoading && */}
+                {  allCategorieses.map((item, index) => {
                     return (
                         <Button 
                             key = { index } 
@@ -38,7 +42,7 @@ class Home extends Component {
                             onClick={ () => choosenCat(item.id) }
                             catBtn = 'cat-btn'
                             btnIcon = { item.iconImg.url }
-                            disable={ this.props.isLoading }
+                            disabled={ this.props.isLoading }
                         />
                     )	
                 })}	
