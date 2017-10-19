@@ -260,6 +260,7 @@ button:hover {
 .toggle-container {
     width: 90%;
     display: flex;
+    cursor: pointer;
     flex-flow: column wrap;
     align-items: center;
     text-transform: uppercase;
@@ -338,6 +339,7 @@ h4 {
     border-top: 6px solid #222;
     height: 3rem;
     width: 3rem;
+   
 }
 
 @keyframes loadspin {

@@ -4,11 +4,11 @@ const ToggleButton = ( props ) => {
     return (
         <div className='toggle-container'>
             <label className='switch'>
-                {/* {this.state.isToggleOn ? 'ON' : 'OFF'} */}
                 <input 
                     type='checkbox' 
                     onClick={ (e) => { props.onClick(e) } }
                     defaultChecked={ props.isLocationBased ? true : false }
+
                 />
                 <span className='slider'></span>
             </label>

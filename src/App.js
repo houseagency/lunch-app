@@ -21,6 +21,7 @@ class App extends Component {
 			currentPosTimeStamp: null,
 			isLocationBased: false,
 			isFiltering: false,
+			isLoading: false
 		}
 
 		/* To be able to re-use the methods you bind them to the component 
@@ -36,6 +37,7 @@ class App extends Component {
 		this.shouldPosBeUpdated = this.shouldPosBeUpdated.bind(this);
 		this.filterOnLocation = this.filterOnLocation.bind(this);
 		this.handlePosToggle = this.handlePosToggle.bind(this);
+		
 	}
 
 	//Function called when user presses a category button
@@ -51,11 +53,12 @@ class App extends Component {
 						selectedCategory: category,
 						restaurantsList: resturants,
 						isFiltering: false,
-						// shouldPosBeUpdated()
+						isLoading: true
 					});
 					this.shouldPosBeUpdated();
 				})
 			})
+			
 		} else {
 			this.filterOnCat(this.props.data.allRestaurantses, category).then((resturants) => {
 				this.setState({
@@ -70,7 +73,7 @@ class App extends Component {
 
 	/* When this function is called set isLocationBased to false 
 	   for it to reload so click button several times */
-	backToStart() { this.setState({ step: 1  }); }
+	backToStart() { this.setState({ step: 1, isLoading: false  }); }
 
 	showInfo() { this.setState({ step: 3 }); }
 
@@ -80,8 +83,12 @@ class App extends Component {
 	//IF toggle btn is checked then get current position
 	handlePosToggle(e) {
 		this.setState({ isLocationBased: true });
-		if ( e.target.checked ) { 
-			this.getCurrentPos() 
+		if ( e.target.checked ) {
+			this.setState({ 
+				isLoading: true 
+			});
+
+			this.getCurrentPos() 	
 		} else { 
 			this.setState({ 
 				currentPos: null, 
@@ -108,7 +115,7 @@ class App extends Component {
 			});
 
 		} else {
-			// Browser doesn't support Geolocation???!!!!
+			// Browser doesn't support Geolocation
 			this.setState({ currentPos: null, isLocationBased: false });
 		}
 	}
@@ -120,8 +127,11 @@ class App extends Component {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude 
 			},
-			currentPosTimeStamp: timeStamp
+			currentPosTimeStamp: timeStamp,
+			isLoading: false
 		});
+		
+	
 		console.log('current time stamp' + this.state.currentPosTimeStamp);
 	} 
 
@@ -169,6 +179,7 @@ class App extends Component {
 					choosenCat={ this.choosenCat }
 					isLocationBased={ this.state.isLocationBased }
 					handlePosToggle= {this.handlePosToggle}
+					isLoading = { this.state.isLoading }
 				/>
 			)
 		} else if ( this.state.step === 2 ) {

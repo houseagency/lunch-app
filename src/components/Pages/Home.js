@@ -12,9 +12,10 @@ class Home extends Component {
         const { handlePosToggle } = this.props;
         const { isLoadingPos } = this.props;
         const { isLocationBased } = this.props;
-        const { isFiltering } = this.props ? 'block' : 'none';//FUNKAR EJ DISABLA KNAPPARNA SAMTIDIGT
         const allCategorieses = data.allCategorieses;
 
+        // console.log(this.props.isLoading);
+        
         if ( !allCategorieses ) {
             return false;
         }
@@ -25,8 +26,10 @@ class Home extends Component {
                     onClick={ handlePosToggle }
                     isLocationBased={ isLocationBased }
                 />
-                {/* VISAS HELA TIDEN hela tiden */}
-                {/* <div className='loading-icon' style={ {isFiltering} }></div> */}
+                {/* && is another a shorter way to make a if statement */}
+                { this.props.isLoading &&
+                    <div className='loading-icon' ></div> }
+                
                 { allCategorieses.map((item, index) => {
                     return (
                         <Button 
@@ -35,6 +38,7 @@ class Home extends Component {
                             onClick={ () => choosenCat(item.id) }
                             catBtn = 'cat-btn'
                             btnIcon = { item.iconImg.url }
+                            disable={ this.props.isLoading }
                         />
                     )	
                 })}	
